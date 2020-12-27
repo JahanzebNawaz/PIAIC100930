@@ -1,1 +1,1 @@
-document.getElementById("details").innerText = "Yay! I can write HTML code using Javascript.";
+document.write("Yay! I can write HTML code using Javascript.")

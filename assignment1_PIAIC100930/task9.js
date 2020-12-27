@@ -6,7 +6,7 @@ let _sub = parseInt(num1) - parseInt(num2);
 let _mul = parseInt(num1) * parseInt(num2);
 let _div = parseInt(num1) / parseInt(num2);
 
-document.getElementById("sum").innerHTML = "Sum of " + num1 + " and " + num2 + " is equal to " + _sum;
-document.getElementById("sub").innerHTML = "Subtraction of " + num1 + " and " + num2 + " is equal to " + _sub;
-document.getElementById("mul").innerHTML = "Multiplication of " + num1 + " and " + num2 + " is equal to " + _mul;
-document.getElementById("div").innerHTML = "Division of " + num1 + " and " + num2 + " is equal to " + _div;
+document.write(" Sum of " + num1 + " and " + num2 + " is equal to " + _sum  + "<br/>>");
+document.write("Subtraction of " + num1 + " and " + num2 + " is equal to " + _sub + "<br/>");
+document.write("Multiplication of " + num1 + " and " + num2 + " is equal to " + _mul + "<br/>");
+document.write("Division of " + num1 + " and " + num2 + " is equal to " + _div.toFixed(2) + "<br/>");
