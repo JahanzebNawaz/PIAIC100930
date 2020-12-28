@@ -15,6 +15,6 @@ document.write("Value after addition is " + number + "<br/>");
 number = --number;
 document.write("Value after decrement is " + number + "<br/>");
 
-number = number /3;
+number = number % 3;
 document.write("The remainder is " + number + "<br/>");
 
