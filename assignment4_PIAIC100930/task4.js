@@ -8,12 +8,30 @@
 
 let email = prompt("Enter your email: ");
 
-const checkEmail = (email) => {
-    if (!email.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)) {
-        alert(`InValid Email Address ${email}`);
-    } else {
-        alert("Valid Email!")
-    }
+// const checkEmail = (email) => {
+//     if (!email.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)) {
+//         alert(`InValid Email Address ${email}`);
+//     } else {
+//         alert("Valid Email!")
+//     }
+// }
+
+// checkEmail(email);
+
+
+const checkEmail2 = (email) =>{
+    var atSymbol = email.indexOf("@");
+    if (atSymbol < 1) return false;
+
+    var dot = email.indexOf(".");
+    if (dot <= atSymbol + 2) return false;
+
+    if (dot === email.length - 1) return false;
+    return true;
 }
 
-checkEmail(email);
+if(checkEmail2(email)){
+    alert(`Valid Email Address ${email}`);
+}else{
+    alert(`InValid Email Address ${email}`);
+}
