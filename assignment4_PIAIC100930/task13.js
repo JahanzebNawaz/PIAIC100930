@@ -7,7 +7,7 @@ let newdate = new Date();
 let milliseconds = newdate.getTime();
 let todayMin = newdate.getMinutes();
 let diff = milliseconds - todayMin;
-let diffMin = diff / (1000 * 60 * 60);
+let diffMin = diff / (1000 * 60);
 let accurateMin = Math.floor(diffMin);
 
 
