@@ -1,0 +1,7 @@
+{
+    "ethcode.keystore.keyStorePath": "/home/jk/.vscode/extensions/ethential.ethcode-0.2.1",
+    "ethcode.userConfig.compiler": {
+        "lang": "solidity",
+        "solidityCompilerVersion": "v0.5.0+commit.1d4f565a"
+    }
+}
