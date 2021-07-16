@@ -66,4 +66,3 @@ contract Yamaha is MotorCycle {
     }
     
 }
-
