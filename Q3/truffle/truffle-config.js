@@ -1,6 +1,10 @@
 const HDWalletProvider = require('@truffle/hdwallet-provider');
 
 
+// const mnemonic = "alone magnet similar twelve talk strike nothing dawn syrup ridge width train";
+
+// e28c8e34024db32c0d45f7d492ed9aa865ed8ba92777a2bc37ebc21bab1605ad
+
 require('dotenv').config()
 const mnemonic = process.env.MNEMONIC
 
