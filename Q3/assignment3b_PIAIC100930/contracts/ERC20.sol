@@ -17,7 +17,7 @@ contract ERC20 {
     uint _initialSupply;
     uint _releasetime;
 
-     constructor()  public {
+     constructor() {
         _name = "JK COIN";
         _symbol = "JKC";
         _owner = msg.sender;
@@ -26,7 +26,7 @@ contract ERC20 {
         _cap = 2000 * 10 ** _decimal;
         _initialSupply = 200 * 10 ** _decimal;
         _totalSupply = _initialSupply;
-        _balances[_owner] = _totalSupply;
+        _balances[_owner] = _initialSupply;
         _releasetime = block.timestamp + (30*1 days);
     }
     
