@@ -1,11 +1,5 @@
 //"SPDX-License-Identifier: UNLICENSED"
-pragma solidity ^0.8.0;
-
-// Create a token based on ERC20 which is buyable. Following features should present;
-
-// 1. Anyone can get the token by paying against ether
-// 2. Add fallback payable method to Issue token based on Ether received. Say 1 Ether = 100 tokens.
-// 3. There should be an additional method to adjust the price that allows the owner to adjust the price.
+pragma solidity 0.8.0;
 
 
 contract ERC20 {
@@ -19,20 +13,30 @@ contract ERC20 {
     uint _decimal;
     uint _price;
     uint _qty = 100 * 10 ** 18;
+    uint _cap;
+    uint _initialSupply;
+    uint _releasetime;
 
-    constructor() {
+     constructor()  public {
         _name = "JK COIN";
         _symbol = "JKC";
         _owner = msg.sender;
         _decimal = 18;
         _price =  100 ** 18;
-        _totalSupply = 100 * 10 ** _decimal;
-        
+        _cap = 2000 * 10 ** _decimal;
+        _initialSupply = 200 * 10 ** _decimal;
+        _totalSupply = _initialSupply;
         _balances[_owner] = _totalSupply;
+        _releasetime = block.timestamp + (30*1 days);
+    }
+    
+    modifier onlyOwner {
+        require(msg.sender == _owner,"only owner can run this function");
+        _;
     }
 
     
-     function buyTokens(uint256 amount) public payable {
+     function buyTokens(uint amount) public payable {
         // require(amount >= 1 ether, "Amount should be 1 ether");
 
         _price = amount * _qty;
@@ -45,10 +49,30 @@ contract ERC20 {
         
     } 
     
+    function _mint(uint _amount) public onlyOwner returns (uint) {
+        require(_totalSupply + _amount < _cap , "miniting limit exceded");
+        _balances[msg.sender] += _amount;
+        _totalSupply += _amount;
+        return _totalSupply;
+    }
+    
+    
+    function transfer(address recipient, uint256 amount) public  returns (bool) {
+        require(msg.sender != address(0), " Invalid Sender Address");
+        require(recipient != address(0), " Invalid Reciever Address");
+        require(_balances[msg.sender] > amount,"Not enfough balance.");
+        require(block.timestamp >= _releasetime,"Can not transfer before release time!");
+        _balances[msg.sender] = _balances[msg.sender] - amount;
+        _balances[recipient] = _balances[recipient] + amount;
+        return true;
+    }
     
     fallback() external payable {
         buyTokens(msg.value);
+
     }
+    
+    receive() external payable{}
     
 
     function setPrice( uint qty) public returns(uint) {
@@ -77,22 +101,3 @@ contract ERC20 {
    
 }
 
-
-contract callFallback {
-    
-    // trying to call fallback using abiencode
-    
-    function calFalback(address tokenContract) public payable returns (bool success) {
-        require(msg.value >= 1 ether, "Minimum amount should be greater than 1 eher");
-        (success,) = tokenContract.call{value: msg.value}(abi.encodeWithSignature("buyTokens(uint256)",msg.value));
-    }
-    
-    //step 3 owner can adjust price using abiencode for practice only
-    
-    function setPrice(address tokenContract, address _owner, uint _qty) public returns(bool success, bytes memory data) {
-        
-        bytes memory method = abi.encodeWithSignature("setPrice(address,uint256)",_owner,_qty);
-        (success,data) = tokenContract.call(method);
-    }
-    
-}
